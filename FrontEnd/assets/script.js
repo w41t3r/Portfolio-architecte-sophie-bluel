@@ -1,5 +1,3 @@
-console.log("JS LOADED");
-
 worksUrl = "http://127.0.0.1:5678/api/works"
 
 fetch(worksUrl)
