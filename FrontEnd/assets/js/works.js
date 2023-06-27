@@ -1,6 +1,6 @@
-const worksUrl = "http://127.0.0.1:5678/api/works";
-
 /***** Filter management and home page content *****/
+
+const worksUrl = "http://127.0.0.1:5678/api/works";
 
 fetch(worksUrl)
     .then(response => response.json())
