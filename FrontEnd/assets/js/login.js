@@ -1,5 +1,7 @@
-const loginUrl = "http://127.0.0.1:5678/api/users/login";
 /***** Login form management *****/
+
+const loginUrl = "http://127.0.0.1:5678/api/users/login";
+
 /*
 function getLoginInfo() {
     console.log("GET INFO");
@@ -10,44 +12,51 @@ function getLoginInfo() {
     return true;
 }
 */
-function getLoginInfo() {
-    const loginEmail = document.getElementById("email").value;
-    const loginPwd = document.getElementById("password").value;
-    console.log(loginEmail);
-    console.log(loginPwd);
-    getLoginResponse(loginEmail, loginPwd);
 
+const loginForm = document.querySelector('.login__form');
+loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    getLoginInfo(event);
+});
+
+
+
+function getLoginInfo(event) {
+    const loginEmail = event.target.querySelector("[name=email]").value;
+    const loginPwd = event.target.querySelector("[name=password]").value;
+    getLoginResponse(loginEmail, loginPwd);
 }
 
 function getLoginResponse(loginEmail, loginPwd) {
 
-    console.log("GET LOGIN INFO");
-
     const loginInfo = {
-        name: loginEmail,
+        email: loginEmail,
         password: loginPwd
     };
 
     const fetchOptions = {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Accept': 'application/json',
+            "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify(loginInfo)
     };
-    console.log("BEFORE FETCH");
     fetch(loginUrl, fetchOptions)
-        .then(response => response.status())
-        .then(result => {
-            //console.log("rLogin = result;");
-            console.log("STATUS CODE = " + result + "")
-            rLogin = result;
-            for (i = 0; i < rLogin.length; i++) {
-                console.log("RESULT = ");
-                console.log(rLogin[i]);
+        .then(response => {
+            console.log(response.status);
+            if (response.status !== 200) {
+                window.location.href = "./login.html";
+                alert("/!\\ Email ou mot de passe incorrect /!\\");
+                throw new Error("HTTP status " + response.status);
             }
+            return response.json();
+        })
+        .then(responseLogin => {
+            sessionStorage.setItem("token", responseLogin.token);
+            window.location.href = "./index.html";
+            alert("Connexion reussi");
         });
-    console.log("END FETCH");
 }
 
 /***** End login form management *****/

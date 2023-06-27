@@ -213,13 +213,13 @@ input[type="submit"]{
 }
 
 /***** LOG IN PAGE *****/
-.form {
+.login {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	margin-top: 120px;
 }
-.form #login__title {
+.login #login__title {
 	font-size: 30px;
 	color: #1D6154;
 	font-weight: 700;
@@ -227,18 +227,18 @@ input[type="submit"]{
 	height: 15px;
 	margin-bottom: 25px;
 }
-.form label {
+.login label {
 	display: flex;
 	margin-top: 30px;
 }
-.form input {
+.login input {
 	width: 379px;
 	height: 45px;
 	border: none;
 	box-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
 	
 }
-.form .login__btn {
+.login .login__btn {
 	display: flex;
 	justify-content: center;
 	padding: 10px 40px 10px 40px;
@@ -255,7 +255,7 @@ input[type="submit"]{
 	margin-left: 25%;
 }
 
-.form .forgot__password {
+.login .forgot__password {
 	color: black;
 	font-family: 'work', sans-serif;
 	font-size: 14px;
@@ -265,7 +265,7 @@ input[type="submit"]{
 .footer__login {
 	position: absolute;
 	bottom: 0;
-	width: 99%;
+	width: 100%;
 	left: 0;
 }
 footer nav ul {
@@ -274,3 +274,6 @@ footer nav ul {
 	margin: 2em;
 }
 
+.footer__login nav ul li {
+	margin-right: 10%;
+}
