@@ -67,10 +67,6 @@ function displayWorks(worksData) {
 
     worksDataLength = worksData.length;
 
-
-    console.log("WORKS IN THIS CAT : " + worksDataLength + "");
-
-
     let allTagFigure = document.querySelectorAll('div.gallery figure');
     for (i = 0; i < allTagFigure.length; i++) {
         allTagFigure[i].remove();
