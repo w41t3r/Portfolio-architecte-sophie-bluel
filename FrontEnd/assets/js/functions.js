@@ -1,38 +1,42 @@
 export function loggedUser() {
-    if (sessionStorage.getItem('token') !== null) {
-        /////////////////////////////////////////
-        console.log('User connected');
-        return true;
-    }
-    else {
-        console.log('User NOT connected');
-        return false;
-    }
+    if (sessionStorage.getItem('token') !== null) return true;
+    else return false;
 }
 
-export function generateTag(tagParent, tagType, tagName, textContent, tagId, tagHtml) {
+export function generateTag(tagParent, tagType, tagName, textContent, tagId, tagHtml, inputType, formFor) {
 
     let element = document.createElement(tagType);
     tagParent = document.querySelector(tagParent);
-    
+
     if (checkParam(tagName)) {
         element.className = tagName;
     }
-
     if (checkParam(textContent)) {
         element.innerText = textContent;
+        if ((tagType == "option") && (textContent === "Objets")) element.value = 1;
+        if ((tagType == "option") && (textContent === "Appartements")) element.value = 2;
+        if ((tagType == "option") && (textContent === "Hotels & restaurants")) element.value = 3;
     }
-    
+
     if (checkParam(tagId)) {
         element.id = tagId;
     }
-
-
     if (checkParam(tagHtml)) {
-        console.log(tagHtml);
-        element.innerHtml = tagId;
+        element.innerHTML = tagHtml;
+    }
+    if (checkParam(inputType)) {
+        element.type = inputType;
+    }
+    if (checkParam(formFor)) {
+        element.htmlFor = formFor;
+    }
+    if ((tagType == "input") && (tagId === "file__upload")) {
+        element.setAttribute("name", "picture");
+//        element.setAttribute("onchange", "previewPicture(this)");
+        element.setAttribute("accept", "image/jpg, image/png");
     }
     tagParent.appendChild(element);
+    return element;
 }
 
 function checkParam(param) {

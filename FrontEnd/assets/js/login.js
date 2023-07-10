@@ -55,7 +55,6 @@ function getLoginResponse(loginEmail, loginPwd) {
         .then(responseLogin => {
             sessionStorage.setItem("token", responseLogin.token);
             window.location.href = "./index.html";
-            alert("Connexion reussi");
         });
 }
 
