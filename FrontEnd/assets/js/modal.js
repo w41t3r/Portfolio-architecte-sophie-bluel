@@ -30,12 +30,13 @@ if (loggedUser()) {
     updateButton.addEventListener('click', function (e) {
         e.preventDefault();
         createModal();
-        //        fillModale("DELETE ITEM");
-        fillModale("ADD ITEM");
+        fillModale("DELETE ITEM");
+        //        fillModale("ADD ITEM");
     })
 }
 
 function createModal() {
+    console.log(`CREATE MODAL`);
     if (document.querySelector('.modal') !== null) return;
     else {
         const modalContainer = document.querySelector('body');
@@ -48,16 +49,17 @@ function createModal() {
 }
 
 function fillModale(modal) {
+    console.log(`FILL MODAL`);
     if (modal === "DELETE ITEM") {
-        generateTag("body .modal", "div", "modal__content", 0, 0, 0, 0, 0);
-        generateTag("body .modal__content", "i", "fa-solid fa-xmark modal__close__logo", 0, 0, "<span class=\"modal__close__txt\">Fermer la modal</span>", 0, 0);
-        generateTag("body .modal__content", "h3", "modal__title", "Galerie photo", 0, 0, 0, 0);
-        generateTag("body .modal__content", "div", "modal__selector", 0, 0, 0, 0, 0);
+        generateTag("body .modal", "div", "modal__content__delete", 0, 0, 0, 0, 0);
+        generateTag("body .modal__content__delete", "i", "fa-solid fa-xmark modal__close__logo", 0, 0, "<span class=\"modal__close__txt\">Fermer la modal</span>", 0, 0);
+        generateTag("body .modal__content__delete", "h3", "modal__title", "Galerie photo", 0, 0, 0, 0);
+        generateTag("body .modal__content__delete", "div", "modal__selector", 0, 0, 0, 0, 0);
 
         displayAllWorksInModal(allWorksData);
-        generateTag("body .modal__content", "div", "modal__line", 0, 0, 0, 0, 0);
-        generateTag("body .modal__content", "button", "button modal__add__btn", "Ajouter une photo", 0, 0, 0, 0);
-        generateTag("body .modal__content", "button", "modal__delete__btn", "Supprimer la galerie", 0, 0, 0, 0);
+        generateTag("body .modal__content__delete", "div", "modal__line", 0, 0, 0, 0, 0);
+        generateTag("body .modal__content__delete", "button", "button modal__add__btn", "Ajouter une photo", 0, 0, 0, 0);
+        generateTag("body .modal__content__delete", "button", "modal__delete__btn", "Supprimer la galerie", 0, 0, 0, 0);
 
         const trashsLogo = document.querySelectorAll('.trash__logo');
         for (let i = 0; i < trashsLogo.length; i++) {
@@ -66,7 +68,8 @@ function fillModale(modal) {
             })
         }
         document.querySelector('.modal__close__logo').addEventListener('click', closeModal);
-        document.querySelector('.modal__add__btn').addEventListener('click', displayAddItem);
+        document.querySelector('.modal__add__btn').addEventListener('click', displayAddModal);
+        //        document.querySelector('.modal__add__btn').addEventListener('click', displayAddItem);
         document.querySelector('.modal__delete__btn').addEventListener('click', deleteItem);
     }
     if (modal === "ADD ITEM") {
@@ -84,7 +87,7 @@ function fillModale(modal) {
         generateTag("body .modal__img__container", "label", "button modal__img__add__label", "+ Ajouter photo", 0, 0, 0, "file__upload");
 
         generateTag("body .modal__img__container", "input", 0, 0, "file__upload", 0, "file", 0);
-        generateTag("body .modal__img__container", "img", 0, 0, "img__upload", 0, 0, 0);
+        generateTag("body .modal__img__container", "img", "img__hidden", 0, "img__upload", 0, 0, 0);
 
 
         generateTag("body .modal__img__container", "p", "modal__img__txt", "jpg.png : 4mo max", 0, 0, 0, 0);
@@ -105,23 +108,23 @@ function fillModale(modal) {
             console.log(`1`)
             if (that.files && that.files[0]) {
                 console.log(`IF`)
-//                that.next('custom-file-label').html(that.files[0].name);
                 let reader = new FileReader();
                 reader.onload = (e) => {
                     document.getElementById('img__upload').setAttribute('src', e.target.result);
-                    document.getElementById('img__upload').classList.add('selected');
+                    document.getElementById('img__upload').classList.remove('img__hidden');
                 }
                 reader.readAsDataURL(that.files[0]);
             }
         });
 
+                document.querySelector('.modal__arrow__logo').addEventListener('click', displayDeleteModal);
         document.querySelector('.modal__close__logo').addEventListener('click', closeModal);
     }
 }
 
 function displayAddItem(e) {
     e.preventDefault;
-    document.querySelector('.modal__add__btn').removeEventListener('click', displayAddItem);
+    //    document.querySelector('.modal__add__btn').removeEventListener('click', displayAddItem);
 }
 
 function deleteItem(e) {
@@ -132,11 +135,13 @@ function deleteItem(e) {
     const itemsToDelete = document.querySelectorAll('.trash__logo--selected');
     for (let i = 0; i < itemsToDelete.length; i++) {
         let elementId = itemsToDelete[i].getAttribute('id');
-        itemsContainer[elementId - 1].remove();
+        //        itemsContainer[elementId - 1].remove();
         console.log(`Element : ${elementId} deleted`);
         fetchDelete(elementId);
     }
-
+    //        createModal();
+    //        fillModale("DELETE ITEM");
+    window.location.reload(false);
 }
 
 function fetchDelete(elementId) {
@@ -150,9 +155,26 @@ function fetchDelete(elementId) {
     });
 }
 
+function displayAddModal() {
+    console.log(`DISPLAY ADD`);
+    document.querySelector('.modal').remove();
+    createModal();
+    fillModale("ADD ITEM");
+
+
+}
+
+function displayDeleteModal() {
+    console.log(`DISPLAY DELETE`);
+    document.querySelector('.modal').remove();
+    createModal();
+    fillModale("DELETE ITEM");
+}
+
 function closeModal(e) {
+    console.log(`CLOSE MODAL`);
     e.preventDefault;
-    document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
+    //    document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
     document.querySelector('.modal').remove();
 }
 

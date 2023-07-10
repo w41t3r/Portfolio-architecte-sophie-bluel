@@ -9,12 +9,8 @@ fetch(worksUrl)
         initializeFilterBtn(allWorksData, 1);
     });
 
-
 const buttonsArray = document.querySelectorAll('.filter__btn');
 const buttonsArrayLength = buttonsArray.length;
-
-//////////////////////////////////////////
-console.log("filter btn count : " + buttonsArray.length + "");
 
 function initializeFilterBtn(worksData, btnNumber) {
     buttonsArray[btnNumber - 1].classList.add('filter__btn--selected');

@@ -32,8 +32,8 @@ export function generateTag(tagParent, tagType, tagName, textContent, tagId, tag
     }
     if ((tagType == "input") && (tagId === "file__upload")) {
         element.setAttribute("name", "picture");
-//        element.setAttribute("onchange", "previewPicture(this)");
         element.setAttribute("accept", "image/jpg, image/png");
+        element.required = true;
     }
     tagParent.appendChild(element);
     return element;

@@ -170,7 +170,7 @@ body {
 	align-items: center;
 }
 
-.modal__content {
+.modal__content__delete {
 	border: green 2px solid;
 	background-color: white;
 	border-radius: 10px;
@@ -356,16 +356,16 @@ body {
 	font-size: 9px;
 }
 
-#img__upload {
+.img__hidden{
 	display: none;
 }
 
-#img__upload .selected {
-	display: display;
+#img__upload{
 	object-fit: fill;
 	width: 160px;
 	height: 160px;
-	position: fixed;
+	position: absolute;
+
 }
 
 .modal__title__work {
