@@ -174,7 +174,7 @@ function uploadItem(e) {
         .then((response) => {
             if (!response.ok) {
                 console.log('RESPONSE NO OK');
-                throw new Error("Request error");
+                throw new Error("Request failed");
             }
         })
         .catch((error) => {
