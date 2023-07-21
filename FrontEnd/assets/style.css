@@ -182,7 +182,7 @@ body {
 }
 
 .modal__close__logo {
-	margin-top: -15px;
+	margin-top: 20px;
 	position: relative;
 	font-size: 17px;
 	left: 43%;
@@ -312,6 +312,13 @@ body {
 	right: 43%;
 }
 
+.modal__add__close__logo {
+	margin-top: -15px;
+	position: relative;
+	font-size: 17px;
+	left: 43%;
+}
+
 .modal__form {
 	border: blue 2px solid;
 	width: 70%;
@@ -373,7 +380,7 @@ body {
 	margin-bottom: 10px;
 	font-size: 13px;
 	position: relative;
-	right: 46%;
+	right: 45%;
 }
 
 #modal__title__input {
@@ -389,7 +396,7 @@ body {
 	margin-bottom: 10px;
 	font-size: 13px;
 	position: relative;
-	right: 42%;
+	right: 40%;
 }
 
 #modal__category__select {
@@ -406,10 +413,14 @@ body {
 	margin-top: 40px;
 }
 
-.modal__validate__btn {
+.modal__upload__btn {
 	margin-top: 30px;
 	width: 50%;
 	background-color: #A7A7A7;
+}
+
+.green {
+	background-color: #1D6154;
 }
 
 /***** END ADD MODAL *****/

@@ -30,7 +30,7 @@ export function generateTag(tagParent, tagType, tagName, textContent, tagId, tag
     if (checkParam(formFor)) {
         element.htmlFor = formFor;
     }
-    if ((tagType == "input") && (tagId === "file__upload")) {
+    if ((tagType === "input") && (tagId === "file__upload")) {
         element.setAttribute("name", "picture");
         element.setAttribute("accept", "image/jpg, image/png");
         element.required = true;
