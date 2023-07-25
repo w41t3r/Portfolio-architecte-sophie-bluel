@@ -1,13 +1,14 @@
+/********** Fonction pour vérifier si l'utilisateur est connecté **********/
 export function loggedUser() {
     if (sessionStorage.getItem('token') !== null) return true;
     else return false;
 }
 
+/********** Fonction pour généré des balises HTML **********/
 export function generateTag(tagParent, tagType, tagName, textContent, tagId, tagHtml, inputType, formFor) {
 
     let element = document.createElement(tagType);
     tagParent = document.querySelector(tagParent);
-
     if (checkParam(tagName)) {
         element.className = tagName;
     }
@@ -17,7 +18,6 @@ export function generateTag(tagParent, tagType, tagName, textContent, tagId, tag
         if ((tagType == "option") && (textContent === "Appartements")) element.value = 2;
         if ((tagType == "option") && (textContent === "Hotels & restaurants")) element.value = 3;
     }
-
     if (checkParam(tagId)) {
         element.id = tagId;
     }
@@ -39,6 +39,7 @@ export function generateTag(tagParent, tagType, tagName, textContent, tagId, tag
     return element;
 }
 
+/********** Fonction pour vérifier les paramètre reçu par la fonction generateTag() **********/
 function checkParam(param) {
     if ((param !== 0) && (param !== null)) return true;
     else return false;

@@ -2,43 +2,32 @@
 
 const loginUrl = "http://127.0.0.1:5678/api/users/login";
 
-/*
-function getLoginInfo() {
-    console.log("GET INFO");
-    let loginEmail = document.forms["RegForm"]["email"];
-    let loginPwd = document.forms["RegForm"]["password"];
-    console.log(loginEmail);
-    console.log(loginPwd);
-    return true;
-}
-*/
-
+/********** Fonction écouter la soumission du formulaire de connection **********/
 const loginForm = document.querySelector('.login__form');
 loginForm.addEventListener('submit', function (event) {
     event.preventDefault();
     getLoginInfo(event);
 });
 
-
-
+/********** Fonction pour récuperer les informations de connection **********/
 function getLoginInfo(event) {
     const loginEmail = event.target.querySelector("[name=email]").value;
     const loginPwd = event.target.querySelector("[name=password]").value;
-    getLoginResponse(loginEmail, loginPwd);
+    sendLoginResponse(loginEmail, loginPwd);
 }
 
-function getLoginResponse(loginEmail, loginPwd) {
+/********** Fonction pour soumettre les informations de l'utilisateur au serveur **********/
+function sendLoginResponse(loginEmail, loginPwd) {
 
     const loginInfo = {
         email: loginEmail,
         password: loginPwd
     };
-
     const fetchOptions = {
         method: "POST",
         headers: {
             'Accept': 'application/json',
-            "Content-Type": "application/json;charset=utf-8"
+            'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(loginInfo)
     };
