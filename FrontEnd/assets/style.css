@@ -221,10 +221,6 @@ body {
 	left: 43%;
 }
 
-.modal__close__logo:hover {
-	color: red;
-}
-
 .modal__close__txt {
 	font-size: 0px;
 }
