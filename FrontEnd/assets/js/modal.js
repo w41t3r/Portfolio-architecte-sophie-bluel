@@ -14,6 +14,7 @@ fetch(worksUrl)
 /********** Mise en place de l'interface admin **********/
 
 if (loggedUser()) {
+
     document.querySelector('#portfolio div.filter').remove();
     document.getElementById('login__button').remove();
     const linksContainer = document.querySelectorAll('nav ul li');
@@ -47,8 +48,10 @@ if (loggedUser()) {
         })
     }
 }
+
 /********** Fonction pour créer les modales **********/
 function createModal() {
+
     if (document.querySelector('.modal') !== null) return;
     else {
         const firstElement = document.querySelector('header');
@@ -71,6 +74,7 @@ function createModal() {
 
 /********** Fonction pour remplir les modales **********/
 function fillModale(modal) {
+
     if (modal === "DELETE ITEM") {
         generateTag("body .modal", "div", "modal__content__delete", 0, 0, 0, 0, 0);
         generateTag("body .modal__content__delete", "i", "fa-solid fa-xmark modal__close__logo", 0, 0, "<span class=\"modal__close__txt\">Fermer la modal</span>", 0, 0);
@@ -148,6 +152,7 @@ function fillModale(modal) {
 
 /********** Fonction pour upload un nouvel élément **********/
 function uploadItem(e) {
+
     e.preventDefault();
     /***** Vérification que le bouton valider est actif *****/
     if (document.getElementById('upload__btn').className !== 'button modal__upload__btn green') return;
@@ -191,6 +196,7 @@ function uploadItem(e) {
 
 /********** Fonction pour supprimer un ou plusieurs élément(s) **********/
 function deleteItem(e) {
+
     e.preventDefault();
     const itemsToDelete = document.querySelectorAll('.trash__logo--selected');
     for (let i = 0; i < itemsToDelete.length; i++) {
@@ -201,6 +207,7 @@ function deleteItem(e) {
 }
 
 function fetchDelete(elementId) {
+
     fetch(worksUrl + elementId, {
         method: 'DELETE',
         headers: {
@@ -222,6 +229,7 @@ function fetchDelete(elementId) {
 
 /********** Fonction pour afficher la modale d'ajout **********/
 function displayAddModal() {
+
     document.querySelector('.modal__add__btn').removeEventListener('click', displayAddModal);
     document.querySelector('.modal').remove();
     createModal();
@@ -230,6 +238,7 @@ function displayAddModal() {
 
 /********** Fonction pour afficher la modale de suppression **********/
 function displayDeleteModal() {
+
     document.querySelector('.modal__arrow__logo').removeEventListener('click', displayDeleteModal);
     document.querySelector('.modal').remove();
     createModal();
@@ -238,6 +247,7 @@ function displayDeleteModal() {
 
 /********** Fonction pour fermer la modale **********/
 function closeModal(e) {
+
     if (document.getElementById('modal') === null) return;
     else {
         if (e.target.className === 'fa-solid fa-xmark modal__close__logo') {
@@ -267,6 +277,7 @@ function closeModal(e) {
 
 /********** Fonction pour afficher les éléments dans la modale **********/
 function displayWorksInModal(worksData) {
+
     for (i = 0; i < worksData.length; i++) {
         let elementId = worksData[i].id;
         generateTag("body .modal__selector", "div", "modal__item__container", 0, elementId, 0, 0, 0);
@@ -299,6 +310,7 @@ function displayWorksInModal(worksData) {
 
 /********** Fonction pour fermer la modale à la pression de la touche "Échape" **********/
 window.addEventListener('keydown', function (e) {
+
     console.log(`E.KEY = ${e.key}`);
     if (e.key === 'Escape' || e.key === 'Esc') {
         closeModal(e);
