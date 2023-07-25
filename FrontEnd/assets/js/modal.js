@@ -11,6 +11,7 @@ fetch(worksUrl)
         allWorksData = response;
     });
 
+/********** Mise en place de l'interface admin **********/
 
 if (loggedUser()) {
     document.querySelector('#portfolio div.filter').remove();
@@ -21,37 +22,33 @@ if (loggedUser()) {
     linkTag.innerText = "logout";
     linkTag.id = "logout__button";
     linksContainer[2].appendChild(linkTag);
-    // BOUTON MODIFIER
 
+    /***** Création des boutons pour ouvrir les modales *****/
     generateTag("#introduction figure", "i", "fa-regular fa-pen-to-square update__logo first__update__logo", 0, 0, 0, 0, 0);
     generateTag("#introduction figure", "button", "update__button", "modifier", 0, 0, 0, 0);
-
-    //    generateTag("#introduction article", "i", "fa-regular fa-pen-to-square update__logo second__update__logo", 0, 0, 0, 0, 0);
-
     let buttonContainer = document.querySelector('#introduction article');
     let firstElement = document.querySelector('#introduction article h2');
     let secondUpdateButton = document.createElement('i');
     secondUpdateButton.className = 'fa-regular fa-pen-to-square update__logo second__update__logo';
     buttonContainer.insertBefore(secondUpdateButton, firstElement);
     generateTag("#introduction article .second__update__logo", "button", "update__button", "modifier", 0, 0, 0, 0);
-
     generateTag("#portfolio h2", "i", "fa-regular fa-pen-to-square update__logo  third__update__logo", 0, 0, 0, 0, 0);
     generateTag("#portfolio h2", "button", "update__button", "modifier", 0, 0, 0, 0);
 
     let updateButtons = document.querySelectorAll('.update__button');
-
+    /***** Écoute des boutons modifier *****/
     for (let i = 0; i < updateButtons.length; i++) {
         updateButtons[i].addEventListener('click', function (e) {
             e.preventDefault();
+            /***** Création de la modale au clic *****/
             createModal();
+            /***** Remplisage de la modale selon le bouton sélectionné *****/
             if (i === 2) fillModale("DELETE ITEM");
-            //        fillModale("ADD ITEM");
         })
     }
 }
-
+/********** Fonction pour créer les modales **********/
 function createModal() {
-    console.log(`CREATE MODAL`);
     if (document.querySelector('.modal') !== null) return;
     else {
         const firstElement = document.querySelector('header');
@@ -63,19 +60,17 @@ function createModal() {
         generateTag("body .modal__header", "p", "header__update__text", "Mode édition", 0, 0, 0, 0);
         generateTag("body .modal__header ", "button", "header__update__button", "publier les changements", 0, 0, 0, 0);
 
-
         let modal = document.createElement('div');
         modal.id = 'modal';
         modal.className = 'modal';
         modal.ariaModal = 'true';
         modal.role = 'dialog';
         modalContainer.insertBefore(modal, firstElement);
-
     }
 }
 
+/********** Fonction pour remplir les modales **********/
 function fillModale(modal) {
-    console.log(`FILL MODAL`);
     if (modal === "DELETE ITEM") {
         generateTag("body .modal", "div", "modal__content__delete", 0, 0, 0, 0, 0);
         generateTag("body .modal__content__delete", "i", "fa-solid fa-xmark modal__close__logo", 0, 0, "<span class=\"modal__close__txt\">Fermer la modal</span>", 0, 0);
@@ -87,13 +82,14 @@ function fillModale(modal) {
         generateTag("body .modal__content__delete", "button", "button modal__add__btn", "Ajouter une photo", 0, 0, 0, 0);
         generateTag("body .modal__content__delete", "button", "modal__delete__btn", "Supprimer la galerie", 0, 0, 0, 0);
 
+        /***** Écoute des éléments à sélectionner pour suppression *****/
         const trashsLogo = document.querySelectorAll('.trash__logo');
         for (let i = 0; i < trashsLogo.length; i++) {
             trashsLogo[i].addEventListener('click', function (e) {
                 trashsLogo[i].classList.toggle('trash__logo--selected');
             })
         }
-        document.querySelector('.modal__close__logo').addEventListener('click', closeModal);
+        /***** Écoute des éléments cliquable (afficher la modale d'ajout, supprimer les éléments sélectionner *****/
         document.querySelector('.modal__add__btn').addEventListener('click', displayAddModal);
         document.querySelector('.modal__delete__btn').addEventListener('click', deleteItem);
     }
@@ -103,7 +99,7 @@ function fillModale(modal) {
         generateTag("body .modal__content__add", "i", "fa-solid fa-xmark modal__add__close__logo", 0, 0, "<span class=\"modal__close__txt\">Fermer la modal</span>", 0, 0);
         generateTag("body .modal__content__add", "h3", "modal__title", "Ajout photo", 0, 0, 0, 0);
 
-        //AJOUT FORM
+        /***** Génération du formulaire d'ajout *****/
         generateTag("body .modal__content__add", "form", "modal__form", 0, 0, 0, 0, 0);
         generateTag("body .modal__form", "div", "modal__img__container", 0, 0, 0, 0, 0);
         generateTag("body .modal__img__container", "i", "fa-solid fa-mountain-sun fa-flip-horizontal modal__img__logo", 0, 0, 0, 0, 0);
@@ -121,71 +117,85 @@ function fillModale(modal) {
         generateTag("body .modal__form", "div", "modal__line__add", 0, 0, 0, 0, 0);
         generateTag("body .modal__form", "button", "button modal__upload__btn", "Valider", "upload__btn", 0, "submit", 0);
 
-
+        /***** Écoute du chargement de la photo du projet à ajouter *****/
         document.getElementById('file__upload').addEventListener('change', (e) => {
             let that = e.currentTarget;
-            console.log(`1`)
+            const extensionRegex = /\.(jpg|png)$/i;
             if (that.files && that.files[0]) {
-                console.log(`IF`)
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    document.getElementById('img__upload').setAttribute('src', e.target.result);
-                    document.getElementById('img__upload').classList.remove('img__hidden');
+                /* Vérification d'extension du fichier */
+                if (!extensionRegex.test(that.files[0].name)) {
+                    alert("/!\\ Extension de fichier incorrect. Merci de sélectionner un fichier au format .jpg ou .png /!\\");
+                } else {
+                    let reader = new FileReader();
+                    reader.onload = (e) => {
+                        document.getElementById('img__upload').setAttribute('src', e.target.result);
+                        document.getElementById('img__upload').classList.remove('img__hidden');
+                    }
+                    reader.readAsDataURL(that.files[0]);
+                    let uploadBtn = document.getElementById('upload__btn');
+                    /* Activation du bouton validé */
+                    uploadBtn.classList.add('green');
                 }
-                reader.readAsDataURL(that.files[0]);
-                let uploadBtn = document.getElementById('upload__btn');
-                uploadBtn.classList.add('green');
             }
         });
-        document.getElementById('upload__btn').addEventListener('click', uploadItem);
+        /***** Écoute des éléments cliquable (afficher la modale de suppression, upload le nouvel élément *****/
         document.querySelector('.modal__arrow__logo').addEventListener('click', displayDeleteModal);
-        document.querySelector('.modal__add__close__logo').addEventListener('click', closeModal);
+        document.getElementById('upload__btn').addEventListener('click', uploadItem);
+
     }
     document.getElementById('modal').addEventListener('click', closeModal);
 }
 
-
+/********** Fonction pour upload un nouvel élément **********/
 function uploadItem(e) {
     e.preventDefault();
-    const formData = new FormData();
-    const title = document.getElementById('modal__title__input').value;
-    const file = document.getElementById('file__upload').files[0];
-    const category = document.getElementById('modal__category__select').value;
+    /***** Vérification que le bouton valider est actif *****/
+    if (document.getElementById('upload__btn').className !== 'button modal__upload__btn green') return;
+    else {
+        const titleRegex = /^[a-zA-Z-\s]+$/;
+        const formData = new FormData();
+        const title = document.getElementById('modal__title__input').value;
+        const file = document.getElementById('file__upload').files[0];
+        const category = document.getElementById('modal__category__select').value;
 
-    formData.append("title", title);
-    formData.append("image", file);
-    formData.append("category", category);
-    console.log(`FORMDATA img = ${formData.image}`);
+        formData.append("title", title);
+        formData.append("image", file);
+        formData.append("category", category);
 
-    fetch(worksUrl, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json;charset=utf-8',
-            'enctype': 'multipart/form-data',
-            'Authorization': "Bearer " + token
-        },
-        body: formData,
-    })
-        .then((response) => {
-            if (response.status == 201) alert("Projet ajouté avec succès.");
-            else if (!response.ok) {
-                alert("/!\\ Erreur lors de l'ajout /!\\");
-                throw new Error("Request failed. Code error: " + response.status);
-            }
-        })
-        .catch((error) => {
-            console.error("ERROR TO UPLOAD FILE", error);
-        });
+        /* Vérification des informations du nouvel élément */
+        if ((title == "") || (category == "") || (file == undefined) || (!titleRegex.test(title))) {
+            alert("Vous devez remplir tous les champs et le titre ne doit comporter que des lettres et des tirets");
+        } else {
+            fetch(worksUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json;charset=utf-8',
+                    'enctype': 'multipart/form-data',
+                    'Authorization': "Bearer " + token
+                },
+                body: formData,
+            })
+                .then((response) => {
+                    if (response.status == 201) alert("Projet ajouté avec succès.");
+                    else if (!response.ok) {
+                        alert("/!\\ Erreur lors de l'ajout /!\\");
+                        throw new Error("Request failed. Code error: " + response.status);
+                    }
+                })
+                .catch((error) => {
+                    console.error("ERROR TO UPLOAD FILE", error);
+                });
+        }
+    }
 }
 
+/********** Fonction pour supprimer un ou plusieurs élément(s) **********/
 function deleteItem(e) {
     e.preventDefault();
-    console.log(`FUNCTION DELETE ITEM`);
     const itemsToDelete = document.querySelectorAll('.trash__logo--selected');
     for (let i = 0; i < itemsToDelete.length; i++) {
         let elementIdTmp = itemsToDelete[i].getAttribute('id');
         let elementId = parseInt(elementIdTmp, 10);
-        console.log(`Element : ${elementId} deleted`);
         fetchDelete(elementId);
     }
 }
@@ -210,6 +220,7 @@ function fetchDelete(elementId) {
         });
 }
 
+/********** Fonction pour afficher la modale d'ajout **********/
 function displayAddModal() {
     document.querySelector('.modal__add__btn').removeEventListener('click', displayAddModal);
     document.querySelector('.modal').remove();
@@ -217,6 +228,7 @@ function displayAddModal() {
     fillModale("ADD ITEM");
 }
 
+/********** Fonction pour afficher la modale de suppression **********/
 function displayDeleteModal() {
     document.querySelector('.modal__arrow__logo').removeEventListener('click', displayDeleteModal);
     document.querySelector('.modal').remove();
@@ -224,6 +236,7 @@ function displayDeleteModal() {
     fillModale("DELETE ITEM");
 }
 
+/********** Fonction pour fermer la modale **********/
 function closeModal(e) {
     if (document.getElementById('modal') === null) return;
     else {
@@ -252,6 +265,7 @@ function closeModal(e) {
     }
 }
 
+/********** Fonction pour afficher les éléments dans la modale **********/
 function displayWorksInModal(worksData) {
     for (i = 0; i < worksData.length; i++) {
         let elementId = worksData[i].id;
@@ -283,6 +297,7 @@ function displayWorksInModal(worksData) {
     }
 }
 
+/********** Fonction pour fermer la modale à la pression de la touche "Échape" **********/
 window.addEventListener('keydown', function (e) {
     console.log(`E.KEY = ${e.key}`);
     if (e.key === 'Escape' || e.key === 'Esc') {
