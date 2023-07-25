@@ -1,4 +1,4 @@
-/***** Login form management *****/
+/*************** LOGIN FORM MANAGEMENT ***************/
 
 const loginUrl = "http://127.0.0.1:5678/api/users/login";
 
@@ -47,4 +47,4 @@ function sendLoginResponse(loginEmail, loginPwd) {
         });
 }
 
-/***** End login form management *****/
+/*************** END LOGIN FORM MANAGEMENT ***************/
