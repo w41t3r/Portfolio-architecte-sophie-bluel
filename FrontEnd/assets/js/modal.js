@@ -21,31 +21,56 @@ if (loggedUser()) {
     linkTag.innerText = "logout";
     linkTag.id = "logout__button";
     linksContainer[2].appendChild(linkTag);
-    // BOUTON MODIFIER 
+    // BOUTON MODIFIER
 
-    generateTag("#portfolio h2 ", "i", "fa-regular fa-pen-to-square update__logo", 0, 0, 0, 0, 0);
-    generateTag("#portfolio h2 ", "button", "update__button", "modifier", 0, 0, 0, 0);
+    generateTag("#introduction figure", "i", "fa-regular fa-pen-to-square update__logo first__update__logo", 0, 0, 0, 0, 0);
+    generateTag("#introduction figure", "button", "update__button", "modifier", 0, 0, 0, 0);
 
-    let updateButton = document.querySelector('#portfolio .update__button');
+    //    generateTag("#introduction article", "i", "fa-regular fa-pen-to-square update__logo second__update__logo", 0, 0, 0, 0, 0);
 
-    updateButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        createModal();
-        fillModale("DELETE ITEM");
-        //        fillModale("ADD ITEM");
-    })
+    let buttonContainer = document.querySelector('#introduction article');
+    let firstElement = document.querySelector('#introduction article h2');
+    let secondUpdateButton = document.createElement('i');
+    secondUpdateButton.className = 'fa-regular fa-pen-to-square update__logo second__update__logo';
+    buttonContainer.insertBefore(secondUpdateButton, firstElement);
+    generateTag("#introduction article .second__update__logo", "button", "update__button", "modifier", 0, 0, 0, 0);
+
+    generateTag("#portfolio h2", "i", "fa-regular fa-pen-to-square update__logo  third__update__logo", 0, 0, 0, 0, 0);
+    generateTag("#portfolio h2", "button", "update__button", "modifier", 0, 0, 0, 0);
+
+    let updateButtons = document.querySelectorAll('.update__button');
+
+    for (let i = 0; i < updateButtons.length; i++) {
+        updateButtons[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            createModal();
+            if (i === 2) fillModale("DELETE ITEM");
+            //        fillModale("ADD ITEM");
+        })
+    }
 }
 
 function createModal() {
     console.log(`CREATE MODAL`);
     if (document.querySelector('.modal') !== null) return;
     else {
-        const modalContainer = document.querySelector('body');
         const firstElement = document.querySelector('header');
+        const modalContainer = document.querySelector('body');
+        let modalHeader = document.createElement('div');
+        modalHeader.className = 'modal__header';
+        modalContainer.insertBefore(modalHeader, firstElement)
+        generateTag("body .modal__header", "i", "fa-regular fa-pen-to-square update__logo__header", 0, 0, 0, 0, 0);
+        generateTag("body .modal__header", "p", "header__update__text", "Mode édition", 0, 0, 0, 0);
+        generateTag("body .modal__header ", "button", "header__update__button", "publier les changements", 0, 0, 0, 0);
+
+        
         let modal = document.createElement('div');
+        modal.id = 'modal';
         modal.className = 'modal';
         modal.ariaModal = 'true';
+        modal.role = 'dialog';
         modalContainer.insertBefore(modal, firstElement);
+
     }
 }
 
@@ -104,6 +129,7 @@ function fillModale(modal) {
         generateTag("body .modal__form", "div", "modal__line__add", 0, 0, 0, 0, 0);
         generateTag("body .modal__form", "button", "button modal__upload__btn", "Valider", "upload__btn", 0, "submit", 0);
 
+
         document.getElementById('file__upload').addEventListener('change', (e) => {
             let that = e.currentTarget;
             console.log(`1`)
@@ -129,6 +155,7 @@ function fillModale(modal) {
         document.querySelector('.modal__arrow__logo').addEventListener('click', displayDeleteModal);
         document.querySelector('.modal__add__close__logo').addEventListener('click', closeModal);
     }
+    document.getElementById('modal').addEventListener('click', closeModal);
 }
 
 
@@ -153,15 +180,27 @@ function uploadItem(e) {
     let category = document.getElementById('modal__category__select').value;
 
     const formData = new FormData();
-    formData.append("title", document.getElementById('modal__title__input').value);
+    //    formData.append("title", document.getElementById('modal__title__input').value);
+    formData.title = document.getElementById('modal__title__input').value;
+
     //    formData.append("imageUrl", document.getElementById('file__upload').src);
-    formData.append("imageUrl", document.getElementById('file__upload').files[0]);
-    formData.append("categoryId", category.toString());
+
+    //    formData.append("imageUrl", document.getElementById('file__upload').files[0]);//
+    formData.imageUrl = document.getElementById('file__upload').files[0];
+
+    //    formData.append("categoryId", category.toString());
+    formData.categoryId = category.toString();
+
+    console.log(`FORMDATA img = ${formData.imageUrl}`);
     /*    formData.append("userId", 1);
         formData.append("id", 15);
-        //    console.log(`FORMDATA TITLE = ${formData.title}`);
+            formData.userId = 1;
+    formData.id = 15;
+        
+    
     
         //    let request = new Request(worksUrl, {*/
+
     fetch(worksUrl, {
         method: 'POST',
         headers: {
@@ -172,10 +211,7 @@ function uploadItem(e) {
         body: formData,
     })
         .then((response) => {
-            if (!response.ok) {
-                console.log('RESPONSE NO OK');
-                throw new Error("Request failed");
-            }
+            if (!response.ok) throw new Error("Request failed. Code error: " + response.status);
         })
         .catch((error) => {
             console.error("ERROR TO UPLOAD FILE", error);
@@ -216,11 +252,18 @@ function fetchDelete(elementId) {
             'Accept': 'application/json',
             'Authorization': "Bearer " + token
         },
-    });
+    })
+        .then((response) => {
+            if (!response.ok) throw new Error("Request failed. Code error: " + response.status);
+        })
+        .catch((error) => {
+            console.error("ERROR TO DELETE ITEM", error);
+        });
 }
 
 function displayAddModal() {
     console.log(`DISPLAY ADD`);
+    document.querySelector('.modal__add__btn').removeEventListener('click', displayAddModal);
     document.querySelector('.modal').remove();
     createModal();
     fillModale("ADD ITEM");
@@ -228,6 +271,7 @@ function displayAddModal() {
 
 function displayDeleteModal() {
     console.log(`DISPLAY DELETE`);
+    document.querySelector('.modal__arrow__logo').removeEventListener('click', displayDeleteModal);
     document.querySelector('.modal').remove();
     createModal();
     fillModale("DELETE ITEM");
@@ -235,9 +279,32 @@ function displayDeleteModal() {
 
 function closeModal(e) {
     console.log(`CLOSE MODAL`);
-    e.preventDefault;
-    // document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
-    document.querySelector('.modal').remove();
+    console.log(`E CLASS NAME = ${e.target.className}`);
+    if (document.getElementById('modal') === null) return;
+    else {
+        if (e.target.className === 'fa-solid fa-xmark modal__close__logo') {
+            document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
+            document.querySelector('.modal__header').remove();
+            document.querySelector('.modal').remove();
+        }
+        if (e.target.className === 'fa-solid fa-xmark modal__add__close__logo') {
+            document.querySelector('.modal__add__close__logo').removeEventListener('click', closeModal);
+            document.querySelector('.modal__header').remove();
+            document.querySelector('.modal').remove();
+        }
+        if (e.target.id === 'modal') {
+            document.getElementById('modal').removeEventListener('click', closeModal);
+            document.querySelector('.modal__header').remove();
+            document.querySelector('.modal').remove();
+        }
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            if (e.target.className === 'fa-solid fa-xmark modal__close__logo') document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
+            if (e.target.className === 'fa-solid fa-xmark modal__add__close__logo') document.querySelector('.modal__add__close__logo').removeEventListener('click', closeModal);
+            document.getElementById('modal').removeEventListener('click', closeModal);
+            document.querySelector('.modal__header').remove();
+            document.querySelector('.modal').remove();
+        }
+    }
 }
 
 function displayAllWorksInModal(allWorksData) {
@@ -260,13 +327,13 @@ function displayAllWorksInModal(allWorksData) {
 
         generateTag("body .modal__item__container", "div", "trash__logo__container", 0, 0, 0, 0, 0);
         let trashLogoContainer = document.querySelector('.modal__item__container > div:last-child');
-        trashLogoContainer.innerHTML = `<i id="${elementId}__container__item" class="fa-regular fa-trash-can trash__logo"></i>`;
+        trashLogoContainer.innerHTML = `<i id="${elementId}__item__trash" class="fa-regular fa-trash-can trash__logo"></i>`;
         itemsContainer[i].appendChild(trashLogoContainer);
 
         generateTag("body .modal__item__container", "img", "modal__item", 0, 0, 0, 0, 0);
         let imageTag = document.querySelector('.modal__item__container > img:last-child');
         imageTag.src = allWorksData[i].imageUrl;
-        imageTag.id = elementId;
+        imageTag.id = "item__" + elementId;
         itemsContainer[i].appendChild(imageTag);
 
         generateTag("body .modal__item__container", "p", "modal__item__txt", 0, 0, 0, 0, 0);
@@ -275,3 +342,10 @@ function displayAllWorksInModal(allWorksData) {
         itemsContainer[i].appendChild(textTag);
     }
 }
+
+window.addEventListener('keydown', function (e) {
+    console.log(`E.KEY = ${e.key}`);
+    if (e.key === 'Escape' || e.key === 'Esc') {
+        closeModal(e);
+    }
+})

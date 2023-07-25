@@ -158,6 +158,38 @@ body {
 
 /********** MODAL **********/
 
+.modal__header{
+	position: fixed;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	width: 100%;
+	height: 55px;
+	z-index: 11;
+	top: 0;
+}
+
+.update__logo__header {
+	color: white;
+	font-size: 20px;
+}
+
+.header__update__text {
+	color: white;
+	font-size: 15px;
+}
+
+.header__update__button {
+	border: none;
+	background-color: white;
+	color: black;
+	border-radius: 25px;
+	padding: 10px 25px 10px 25px;
+	font-weight: 700;
+}
+
 .modal {
 	background-color: rgba(0, 0, 0, 0.4);
 	position: fixed;
@@ -168,6 +200,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 10;
 }
 
 .modal__content__delete {
@@ -425,7 +458,7 @@ body {
 
 /***** END ADD MODAL *****/
 
-/********** END MODAL **********/
+/***** END MODAL *****/
 
 header {
 	display: flex;
@@ -515,20 +548,48 @@ li:hover a {
 	margin-bottom: 1em;
 }
 
-#portfolio .update__logo {
-	margin-left: 30px;
-	font-size: 17px;
+/***** UPDATE BUTTONS FOR ADMIN *****/
+
+.update__logo {
 	color: black;
 	font-weight: 100;
 }
 
-#portfolio .update__button {
+.first__update__logo {
+	position: relative;
+	left: 10%;
+}
+
+.first__update__logo + .update__button{
+	position: relative;
+	left: 10%;
+}
+
+.second__update__logo {
+	position: relative;
+	top: -70px;
+	margin-bottom: 50px;
+}
+
+article > h2 {
+	margin-top: -100px;
+
+}
+
+.third__update__logo {
+	margin-left: 30px;
+	font-size: 17px;
+}
+
+.update__button {
 	letter-spacing: .05rem;
 	cursor: pointer;
 	border: none;
 	background-color: white;
 	padding: 15px 15px 15px 8px;
 }
+
+/***** END UPDATE BUTTONS FOR ADMIN *****/
 
 .filter {
 	display: flex;
