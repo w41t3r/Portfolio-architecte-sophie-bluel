@@ -311,7 +311,6 @@ function displayWorksInModal(worksData) {
 /********** Fonction pour fermer la modale à la pression de la touche "Échape" **********/
 window.addEventListener('keydown', function (e) {
 
-    console.log(`E.KEY = ${e.key}`);
     if (e.key === 'Escape' || e.key === 'Esc') {
         closeModal(e);
     }
