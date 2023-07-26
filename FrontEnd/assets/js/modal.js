@@ -24,6 +24,16 @@ if (loggedUser()) {
     linkTag.id = "logout__button";
     linksContainer[2].appendChild(linkTag);
 
+    let header = document.querySelector('header');
+    const modalContainer = document.querySelector('body');
+    let modalHeader = document.createElement('div');
+    modalHeader.className = 'edit__header';
+    modalContainer.insertBefore(modalHeader, header);
+
+    generateTag("body .edit__header", "i", "fa-regular fa-pen-to-square edit__header__update__logo", 0, 0, 0, 0, 0);
+    generateTag("body .edit__header", "p", "edit__header__update__text", "Mode édition", 0, 0, 0, 0);
+    generateTag("body .edit__header ", "button", "edit__header__update__button", "publier les changements", 0, 0, 0, 0);
+
     /***** Création des boutons pour ouvrir les modales *****/
     generateTag("#introduction figure", "i", "fa-regular fa-pen-to-square update__logo first__update__logo", 0, 0, 0, 0, 0);
     generateTag("#introduction figure", "button", "update__button", "modifier", 0, 0, 0, 0);
@@ -56,13 +66,6 @@ function createModal() {
     else {
         const firstElement = document.querySelector('header');
         const modalContainer = document.querySelector('body');
-        let modalHeader = document.createElement('div');
-        modalHeader.className = 'modal__header';
-        modalContainer.insertBefore(modalHeader, firstElement)
-        generateTag("body .modal__header", "i", "fa-regular fa-pen-to-square update__logo__header", 0, 0, 0, 0, 0);
-        generateTag("body .modal__header", "p", "header__update__text", "Mode édition", 0, 0, 0, 0);
-        generateTag("body .modal__header ", "button", "header__update__button", "publier les changements", 0, 0, 0, 0);
-
         let modal = document.createElement('div');
         modal.id = 'modal';
         modal.className = 'modal';
@@ -252,24 +255,20 @@ function closeModal(e) {
     else {
         if (e.target.className === 'fa-solid fa-xmark modal__close__logo') {
             document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
-            document.querySelector('.modal__header').remove();
             document.querySelector('.modal').remove();
         }
         if (e.target.className === 'fa-solid fa-xmark modal__add__close__logo') {
             document.querySelector('.modal__add__close__logo').removeEventListener('click', closeModal);
-            document.querySelector('.modal__header').remove();
             document.querySelector('.modal').remove();
         }
         if (e.target.id === 'modal') {
             document.getElementById('modal').removeEventListener('click', closeModal);
-            document.querySelector('.modal__header').remove();
             document.querySelector('.modal').remove();
         }
         if (e.key === 'Escape' || e.key === 'Esc') {
             if (e.target.className === 'fa-solid fa-xmark modal__close__logo') document.querySelector('.modal__close__logo').removeEventListener('click', closeModal);
             if (e.target.className === 'fa-solid fa-xmark modal__add__close__logo') document.querySelector('.modal__add__close__logo').removeEventListener('click', closeModal);
             document.getElementById('modal').removeEventListener('click', closeModal);
-            document.querySelector('.modal__header').remove();
             document.querySelector('.modal').remove();
         }
     }
