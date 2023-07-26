@@ -1,22 +1,27 @@
-/***** Filter management and home page content *****/
+/*************** FILTER MANAGEMENT AND HOME PAGE CONTENT ***************/
 
 const worksUrl = "http://127.0.0.1:5678/api/works";
 
+/********** Requête pour récupérer les travaux dans la base de donnée **********/
 fetch(worksUrl)
     .then(response => response.json())
     .then(response => {
         allWorksData = response;
+        /***** Initialisation des boutons de filtrage des travaux *****/
         initializeFilterBtn(allWorksData, 1);
     });
 
 const buttonsArray = document.querySelectorAll('.filter__btn');
 const buttonsArrayLength = buttonsArray.length;
 
+/********** Fonction pour initialiser les boutons de filtrage **********/
 function initializeFilterBtn(worksData, btnNumber) {
+
     buttonsArray[btnNumber - 1].classList.add('filter__btn--selected');
     displayWorks(filteringCategories(worksData, btnNumber - 1));
 }
 
+/********** Écoute des cliques sur les bouton de filtrage **********/
 for (let i = 0; i < buttonsArrayLength; i++) {
     buttonsArray[i].addEventListener('click', function () {
         for (let i = 0; i < buttonsArrayLength; i++) {
@@ -43,10 +48,11 @@ for (let i = 0; i < buttonsArrayLength; i++) {
     });
 }
 
+/********** Fonction pour filtrer la catégorie à afficher **********/
 function filteringCategories(worksData, categoryId) {
+
     let worksFilteredData = [];
     let filteredIndex = 0;
-
     if (categoryId === 0) {
         return worksData;
     }
@@ -59,15 +65,14 @@ function filteringCategories(worksData, categoryId) {
     return worksFilteredData;
 }
 
+/********** Fonction pour afficher les travaux *********/
 function displayWorks(worksData) {
 
     worksDataLength = worksData.length;
-
     let allTagFigure = document.querySelectorAll('div.gallery figure');
     for (i = 0; i < allTagFigure.length; i++) {
         allTagFigure[i].remove();
     }
-
     for (let i = 0; i < worksDataLength; i++) {
         let tagFigure = document.createElement('figure');
         document.querySelector('.gallery').appendChild(tagFigure);
@@ -83,4 +88,4 @@ function displayWorks(worksData) {
         galleryFigureArray[i].appendChild(figcaptionTag);
     }
 }
-/***** End filter management and home page content *****/
+/*************** END FILTER MANAGEMENT AND HOME PAGE CONTENT ***************/
