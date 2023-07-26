@@ -156,9 +156,9 @@ body {
 	font-size: 14px;
 }
 
-/********** MODAL **********/
+/********** HEADER EDIT MODE **********/
 
-.modal__header{
+.edit__header {
 	position: fixed;
 	display: flex;
 	flex-direction: row;
@@ -169,19 +169,23 @@ body {
 	height: 55px;
 	z-index: 11;
 	top: 0;
+	left: 0;
+	right: 0;
+
 }
 
-.update__logo__header {
+.edit__header__update__logo {
 	color: white;
 	font-size: 20px;
 }
 
-.header__update__text {
+.edit__header__update__text {
 	color: white;
 	font-size: 15px;
+	margin: 0 10px 0 10px;
 }
 
-.header__update__button {
+.edit__header__update__button {
 	border: none;
 	background-color: white;
 	color: black;
@@ -189,6 +193,8 @@ body {
 	padding: 10px 25px 10px 25px;
 	font-weight: 700;
 }
+
+/********** MODAL **********/
 
 .modal {
 	background-color: rgba(0, 0, 0, 0.4);
@@ -201,17 +207,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	z-index: 10;
-}
-
-.modal__content__delete {
-	border: green 2px solid;
-	background-color: white;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 50%;
-	height: 75vh;
 }
 
 .modal__close__logo {
@@ -231,6 +226,17 @@ body {
 }
 
 /***** DELETE MODAL *****/
+
+.modal__content__delete {
+	background-color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 50vh;
+	width: 30%;
+	height: 75vh;
+}
 
 .modal__selector {
 	width: 70%;
@@ -320,6 +326,7 @@ body {
 	font-size: 12px;
 	font-weight: 100;
 }
+
 /***** END DELETE MODAL *****/
 
 /***** ADD MODAL *****/
@@ -330,7 +337,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 50%;
+	min-width: 50vh;
+	width: 30%;
 	height: 70vh;
 }
 
@@ -349,7 +357,6 @@ body {
 }
 
 .modal__form {
-	border: blue 2px solid;
 	width: 70%;
 	display: flex;
 	flex-direction: column;
@@ -359,7 +366,6 @@ body {
 }
 
 .modal__img__container {
-	border: red 2px solid;
 	border-radius: 4px;
 	background-color: #E8F1F6;
 	display: flex;
@@ -377,7 +383,7 @@ body {
 .modal__img__add__label {
 	margin-top: 15px;
 
-	padding: 10px 25px 10px 25px ;
+	padding: 10px 25px 10px 25px;
 	font-size: 12px;
 	background-color: #CBD6DC;
 	color: #306685;
@@ -392,11 +398,11 @@ body {
 	font-size: 9px;
 }
 
-.img__hidden{
+.img__hidden {
 	display: none;
 }
 
-#img__upload{
+#img__upload {
 	object-fit: fill;
 	width: 160px;
 	height: 160px;
@@ -459,7 +465,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 60px 0
 }
 
 section {
@@ -556,7 +562,7 @@ li:hover a {
 	left: 10%;
 }
 
-.first__update__logo + .update__button{
+.first__update__logo+.update__button {
 	position: relative;
 	left: 10%;
 }
@@ -567,7 +573,7 @@ li:hover a {
 	margin-bottom: 50px;
 }
 
-article > h2 {
+article>h2 {
 	margin-top: -100px;
 
 }
