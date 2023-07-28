@@ -118,6 +118,8 @@ function fillModale(modal) {
         generateTag("body .modal__form", "input", 0, 0, "modal__title__input", 0, 0, 0);
         generateTag("body .modal__form", "label", "modal__category__work", "Catégorie", 0, 0, 0, "modal__category__select");
         generateTag("body .modal__form", "select", 0, 0, "modal__category__select", 0, 0, 0);
+        generateTag("body .modal__form #modal__category__select", "option", "option__category", "", 0, 0, 0, 0);
+
         generateTag("body .modal__form #modal__category__select", "option", "option__category", "Objets", 0, 0, 0, 0);
         generateTag("body .modal__form #modal__category__select", "option", "option__category", "Appartements", 0, 0, 0, 0);
         generateTag("body .modal__form #modal__category__select", "option", "option__category", "Hotels & restaurants", 0, 0, 0, 0);
