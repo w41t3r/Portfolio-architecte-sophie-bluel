@@ -15,13 +15,13 @@ Create an edit mode on the home page allowing to add or delete works via a modal
 
 **Home page:**
 
-  - Jobs must be dynamically retrieved from the database.
+  - Works must be dynamically retrieved from the database.
 
-  - Filter buttons to display jobs by category, a "All" button, an "Objects" button, an "Apartments" button and a
+  - Filter buttons to display works by category, a "All" button, an "Objects" button, an "Apartments" button and a
 "Hotels & restaurants" button.
 
   - Display an "Edit mode" banner at the top of the page when the user is logged in as well as edit buttons to open
- a modal to add or remove jobs.
+ a modal to add or remove works.
 
 **Login page:**
 
@@ -30,7 +30,7 @@ Create an edit mode on the home page allowing to add or delete works via a modal
 
 **Modal window**
 
-  - A modal window displaying all jobs and allowing them to be deleted.
+  - A modal window displaying all works and allowing them to be deleted.
 
   - A modal window for adding works with a photo, title and category.
 
