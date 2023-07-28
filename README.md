@@ -48,6 +48,8 @@ Create an edit mode on the home page allowing to add or delete works via a modal
 
 ![2023-07-28_17-16](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/4f7ec903-42a5-43f6-abc5-5080e13a2a54)
 
+_____________________________________________________________________________________________________________________________________
+
  Version française:
 
 ## Sixième projet de la formation "intégrateur web" OpenClassrooms
