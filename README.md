@@ -44,7 +44,7 @@ Create an edit mode on the home page allowing to add or delete works via a modal
 
 ![2023-07-28_17-15](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/9972551c-fe54-495b-984a-e8123df869ba)
 
-![2023-07-28_17-15_1](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/550ec368-b363-49aa-a1e1-1674506cdfb4)
+![2023-07-28_20-43](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/ac8d6b69-b268-4d18-be69-ace36aba2114)
 
 ![2023-07-28_17-16](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/4f7ec903-42a5-43f6-abc5-5080e13a2a54)
 
@@ -93,6 +93,6 @@ d'ajouter ou de supprimer des travaux via une fenêtre modale.
 
 ![2023-07-28_17-15](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/9972551c-fe54-495b-984a-e8123df869ba)
 
-![2023-07-28_17-15_1](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/550ec368-b363-49aa-a1e1-1674506cdfb4)
+![2023-07-28_20-43](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/ac8d6b69-b268-4d18-be69-ace36aba2114)
 
 ![2023-07-28_17-16](https://github.com/w41t3r/Portfolio-architecte-sophie-bluel/assets/35102946/4f7ec903-42a5-43f6-abc5-5080e13a2a54)
